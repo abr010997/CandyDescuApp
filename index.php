@@ -1,6 +1,6 @@
 <?php
 
-$controller = 'classlogin';
+$controller = 'classprincipal';
 
 // Todo esta lógica hara el papel de un FrontController
 if(!isset($_REQUEST['c']))

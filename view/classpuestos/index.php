@@ -1,6 +1,6 @@
-<?php $result = $this->class03puestos->listar(); ?>
+<?php $result = $this->classpuestos->listar(); ?>
        <center><h2>Listado de puestos</h2> </center>   
-    <a href="?c=class03puestos&m=agregar"  class="btn btn-primary" role="button">Registrar puesto</a>
+    <a href="?c=classpuestos&m=agregar"  class="btn btn-primary" role="button">Registrar puesto</a>
    <br>
    <br>   
     <?php if ($result->num_rows): ?>
@@ -22,15 +22,15 @@
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu">
                     <li>
-                        <a href="?c=class03puestos&m=editar&id=<?php echo $row[0]; ?>">
+                        <a href="?c=classpuestos&m=editar&id=<?php echo $row[0]; ?>">
                         <span class="glyphicon glyphicon-pencil"></span> Editar</a>
                     </li>
                     <li>
-                      <a href="?c=class03puestos&m=eliminar&id=<?php echo $row[0]; ?>">
+                      <a href="?c=classpuestos&m=eliminar&id=<?php echo $row[0]; ?>">
                        <span  class="glyphicon glyphicon-trash"></span> Eliminar</a>
                     </li>
                      <li>
-                      <a href="?c=class03puestos&m=ver&id=<?php echo $row[0]; ?>">
+                      <a href="?c=classpuestos&m=ver&id=<?php echo $row[0]; ?>">
                        <span class="glyphicon glyphicon-eye-open"></span> ver</a>
                     </li>
                   </ul>

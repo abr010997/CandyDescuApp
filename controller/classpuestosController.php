@@ -17,8 +17,8 @@ class classpuestosController
 	public function agregar()
 	{
 		if ($_POST) {
-			$this->classpuestos->setAtributo('CDIDPUES',$_POST['CDIDPUES']);
-			$this->classpuestos->setAtributo('CDPUESTO',$_POST['CDPUESTO']);
+			$this->classpuestos->setAtributo('cd_usu_idpuesto',$_POST['cd_usu_idpuesto']);
+			$this->classpuestos->setAtributo('cd_descripcion_pues',$_POST['cd_descripcion_pues']);
 			$this->classpuestos->guardar();
 			header('location:?c=classpuestos&m=index');
 		}
@@ -31,8 +31,8 @@ class classpuestosController
 	public function editar()
 	{
 		if ($_POST) {
-			$this->classpuestos->setAtributo('CDIDPUES',$_POST['CDIDPUES']);
-			$this->classpuestos->setAtributo('CDPUESTO',$_POST['CDPUESTO']);
+			$this->classpuestos->setAtributo('cd_usu_idpuesto',$_POST['cd_usu_idpuesto']);
+			$this->classpuestos->setAtributo('cd_descripcion_pues',$_POST['cd_descripcion_pues']);
 			$this->classpuestos->actualizar();
 			header('location:?c=classpuestos&m=index');
 		}
@@ -45,7 +45,7 @@ class classpuestosController
 
 	public function eliminar()
 	{
-		$this->classpuestos->setAtributo('CDIDPUES',$_REQUEST['id']);
+		$this->classpuestos->setAtributo('cd_usu_idpuesto',$_REQUEST['id']);
 		$this->classpuestos->eliminar();
 		header('location:?c=classpuestos&m=index');
 	}

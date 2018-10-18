@@ -3,8 +3,8 @@ require_once 'conexion.php';
 
 class classpuestos  extends Conexion
 {
-	private $CDIDPUES;
-	private $CDPUESTO;
+	private $cd_usu_idpuesto;
+	private $cd_descripcion_pues;
 
 	private $conexion;
 	
@@ -13,19 +13,19 @@ class classpuestos  extends Conexion
 		$this->conexion = new Conexion();
 	}
 	
-	public function setAtributo($CDPUESTO, $valor)
+	public function setAtributo($cd_descripcion_pues, $valor)
 	{
-		$this->$CDPUESTO = ucfirst(strtolower($valor)); 
+		$this->$cd_descripcion_pues = ucfirst(strtolower($valor)); 
 	}
 
-	public function getAtributo($CDPUESTO)
+	public function getAtributo($cd_descripcion_pues)
 	{
-		return $this->$CDPUESTO;
+		return $this->$cd_descripcion_pues;
 	}
 
-	public function buscar($CDIDPUES)
+	public function buscar($cd_usu_idpuesto)
 	{
-		$sql = "CALL sp_cd_puestos_buscar ('".$CDIDPUES."');";
+		$sql = "CALL sp_cd_puestos_buscar ('".$cd_usu_idpuesto."');";
 		$result = $this->conexion->consultaRetorno($sql);
 		$classpuestos = $this->convertToclasspuestos($result);
 		return $classpuestos;
@@ -40,19 +40,19 @@ class classpuestos  extends Conexion
 
 	public function guardar()
 	{
-		$sql = "CALL sp_puestos_guardar('$this->CDIDPUES','$this->CDPUESTO');";
+		$sql = "CALL sp_cd_puestos_guardar('$this->cd_usu_idpuesto','$this->cd_descripcion_pues');";
 		$this->conexion->consultaSimple($sql);
 	}
 
 	public function actualizar()
 	{
-		$sql = "CALL sp_cd_puestos_editar('$this->CDIDPUES','$this->CDPUESTO');";
+		$sql = "CALL sp_cd_puestos_editar('$this->cd_usu_idpuesto','$this->cd_descripcion_pues');";
 		$this->conexion->consultaSimple($sql);
 	}
 
 	public function eliminar()
 	{
-		$sql = "CALL sp_cd_puestos_eliminar('$this->CDIDPUES');";
+		$sql = "CALL sp_cd_puestos_eliminar('$this->cd_usu_idpuesto');";
 		$this->conexion->consultaSimple($sql);
 	}
 
@@ -60,8 +60,8 @@ class classpuestos  extends Conexion
 	{
 		$classpuestos = new classpuestos();
 		while ($row = mysqli_fetch_array($result)) {
-			$classpuestos->setAtributo('CDIDPUES',$row[0]);
-			$classpuestos->setAtributo('CDPUESTO',$row[1]);
+			$classpuestos->setAtributo('cd_usu_idpuesto',$row[0]);
+			$classpuestos->setAtributo('cd_descripcion_pues',$row[1]);
 		}
 		return $classpuestos;
 	}

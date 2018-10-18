@@ -57,5 +57,6 @@ class classpuestosController
 		require_once 'view/classpuestos/ver.php';
 		require_once 'view/footer.php';
 	}
+	
 }
 ?>

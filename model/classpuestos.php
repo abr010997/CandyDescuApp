@@ -25,34 +25,34 @@ class classpuestos  extends Conexion
 
 	public function buscar($CDIDPUES)
 	{
-		$sql = "CALL SP03_PUESTOS_BUSCAR ('".$CDIDPUES."');";
+		$sql = "CALL sp_cd_puestos_buscar ('".$CDIDPUES."');";
 		$result = $this->conexion->consultaRetorno($sql);
-		$cliente = $this->convertToclasspuestos($result);
-		return $cliente;
+		$classpuestos = $this->convertToclasspuestos($result);
+		return $classpuestos;
 	}
 
 	public function listar()
 	{
-		$sql = "CALL sp_cd_puestos_listar ();";
+		$sql = "CALL sp_cd_puestos_listar();";
 		$result = $this->conexion->consultaRetorno($sql);
 		return $result;
 	}
 
 	public function guardar()
 	{
-		$sql = "CALL sp_cd_puestos_registra ('$this->CDIDPUES','$this->CDPUESTO');";
+		$sql = "CALL sp_puestos_guardar('$this->CDIDPUES','$this->CDPUESTO');";
 		$this->conexion->consultaSimple($sql);
 	}
 
 	public function actualizar()
 	{
-		$sql = "CALL SP03_PUESTOS_ACTUALIZAR ('$this->CDIDPUES','$this->CDPUESTO');";
+		$sql = "CALL sp_cd_puestos_editar('$this->CDIDPUES','$this->CDPUESTO');";
 		$this->conexion->consultaSimple($sql);
 	}
 
 	public function eliminar()
 	{
-		$sql = "CALL SP03_PUESTOS_ELIMINAR ('$this->CDIDPUES');";
+		$sql = "CALL sp_cd_puestos_eliminar('$this->CDIDPUES');";
 		$this->conexion->consultaSimple($sql);
 	}
 

@@ -1,6 +1,7 @@
 <?php $result = $this->classusuarios->listar(); ?>
 
-  <center><h2>Listado de usuarios</h2></center>   
+  <center><h2>Listado de usuarios</h2></center>  
+  <div class="col-sm-offset-2 col-sm-8">   
   <a  href="?c=classusuarios&m=agregar" class="btn btn-primary" role="button">Registrar usuario</a>    
   <br>
   <br>    
@@ -48,4 +49,6 @@
         <?php endif ?>
     </tbody>
   </table>
+  </div>
+
 

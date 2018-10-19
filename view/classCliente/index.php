@@ -1,5 +1,6 @@
 <?php $result = $this->classCliente->listar(); ?>
-       <center><h2>Listado de clientes</h2> </center>   
+       <center><h2>Listado de clientes</h2> </center>
+       <div class="col-sm-offset-2 col-sm-8">     
     <a href="?c=classCliente&m=agregar"  class="btn btn-primary" role="button">Registrar Cliente</a>
    <br>
    <br>   
@@ -50,5 +51,5 @@
           <?php endif ?>
         </tbody>
       </table>
-
+</div>
    

@@ -48,7 +48,7 @@
         <li class="active"><a href="?c=classprincipal&m=index">Inicio</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="">Page 1-1</a></li>
+            <li><a href="?c=classusuarios">Usuarios</a></li>
             <li><a href="?c=classCliente">Clientes</a></li>
             <li><a href="?c=classpuestos">Puestos</a></li>
           </ul>

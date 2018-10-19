@@ -42,7 +42,7 @@ class classlogin extends Conexion
 	//
 
 	public function entrar($usuario, $clave){
-		$sql = "CALL LOGIN('".$usuario."','".$clave."');";
+		$sql = "CALL sp_cd_login('".$usuario."','".$clave."');";
 		$result = $this->conexion->consultaRetorno($sql);
 		if ( $fila = mysqli_fetch_row($result) ) {
 			session_start();

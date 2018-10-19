@@ -1,8 +1,8 @@
 /*
-SQLyog Community v13.0.1 (64 bit)
-MySQL - 10.1.34-MariaDB : Database - candydecuapp
+SQLyog Ultimate v11.11 (64 bit)
+MySQL - 5.5.5-10.1.26-MariaDB : Database - candydecuapp
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -30,8 +30,7 @@ CREATE TABLE `cd_cliente_tb` (
 
 /*Data for the table `cd_cliente_tb` */
 
-insert  into `cd_cliente_tb`(`cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`) values 
-(504080437,'Alberth','Espinoza','Ortiz');
+insert  into `cd_cliente_tb`(`cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`) values (504080437,'Alberth','Espinoza','Ortiz');
 
 /*Table structure for table `cd_factura_tb` */
 
@@ -48,8 +47,7 @@ CREATE TABLE `cd_factura_tb` (
 
 /*Data for the table `cd_factura_tb` */
 
-insert  into `cd_factura_tb`(`cd_fac_numfactura`,`cd_fac_fecha`,`cd_cli_cedula`) values 
-(1,'2018-10-02',504080437);
+insert  into `cd_factura_tb`(`cd_fac_numfactura`,`cd_fac_fecha`,`cd_cli_cedula`) values (1,'2018-10-02',504080437);
 
 /*Table structure for table `cd_historialjuego_tb` */
 
@@ -67,8 +65,7 @@ CREATE TABLE `cd_historialjuego_tb` (
 
 /*Data for the table `cd_historialjuego_tb` */
 
-insert  into `cd_historialjuego_tb`(`cd_hi_id`,`cd_usu_cedula`,`cd_cli_cedula`,`cd_fac_numfactura`,`cd_fac_fecha`,`cd_hi_numcomprobante`) values 
-(0,NULL,NULL,1,NULL,NULL);
+insert  into `cd_historialjuego_tb`(`cd_hi_id`,`cd_usu_cedula`,`cd_cli_cedula`,`cd_fac_numfactura`,`cd_fac_fecha`,`cd_hi_numcomprobante`) values (0,NULL,NULL,1,NULL,NULL);
 
 /*Table structure for table `cd_info_usu_td` */
 
@@ -89,8 +86,7 @@ CREATE TABLE `cd_info_usu_td` (
 
 /*Data for the table `cd_info_usu_td` */
 
-insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`) values 
-(504080437,'86646556','alberthive@gmail.com','arubato','123',1);
+insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`) values (11,'889900','qa@test.com','Alberthea','123',2);
 
 /*Table structure for table `cd_infohistorial_tb` */
 
@@ -115,11 +111,7 @@ CREATE TABLE `cd_puestos_tb` (
 
 /*Data for the table `cd_puestos_tb` */
 
-insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) values 
-(1,'Administrador'),
-(2,'Cajero'),
-(3,'wee'),
-(4,'Alv');
+insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) values (1,'Administrador'),(2,'Cajero'),(3,'wee'),(4,'Alv');
 
 /*Table structure for table `cd_usuario_tb` */
 
@@ -135,8 +127,7 @@ CREATE TABLE `cd_usuario_tb` (
 
 /*Data for the table `cd_usuario_tb` */
 
-insert  into `cd_usuario_tb`(`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`) values 
-(504080437,'Alberth','Espinoza','Ortiz');
+insert  into `cd_usuario_tb`(`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`) values (11,'Alberth','Esquivel','Alvarado');
 
 /* Trigger structure for table `cd_factura_tb` */
 
@@ -433,6 +424,102 @@ BEGIN
   ELSE
 	SELECT 'Resgistro ID no debe ser nulo, favor ingresar datos.' INTO msg;
   END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_usuario_info_tb_buscar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_usuario_info_tb_buscar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_buscar`(IN CED INT(11))
+BEGIN
+SELECT `cd_usuario_tb`.`cd_usu_cedula`,cd_usuario_tb.`cd_usu_nombre`,cd_usuario_tb.`cd_usu_ape1`,cd_usuario_tb.`cd_usu_ape2`,
+`cd_info_usu_td`.`cd_usu_telefono`,cd_info_usu_td.`cd_usu_correo`,`cd_puestos_tb`.`cd_descripcion_pues`
+ FROM `cd_usuario_tb`
+	INNER JOIN `cd_info_usu_td`
+		ON cd_usuario_tb.`cd_usu_cedula` = cd_info_usu_td.`cd_usu_cedula`
+		
+			INNER JOIN cd_puestos_tb
+				ON `cd_info_usu_td`.`cd_usu_idpuesto` = cd_puestos_tb.`cd_usu_idpuesto` 
+	
+					WHERE cd_usuario_tb.`cd_usu_cedula` = CED;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_usuario_info_tb_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_usuario_info_tb_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_eliminar`(IN CED INT(11))
+BEGIN
+DELETE FROM `cd_info_usu_td`
+	WHERE `cd_usu_cedula` = CED;
+	
+		DELETE FROM `cd_usuario_tb`
+			WHERE `cd_usu_cedula` = CED;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_usuario_info_tb_guardar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_usuario_info_tb_guardar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_guardar`(IN CEDU INT(11),
+ IN NOM VARCHAR(50), IN APE1 VARCHAR(50), IN APE2 VARCHAR(50),
+  IN TEL VARCHAR(50), IN COR VARCHAR(100), IN USU VARCHAR(50), IN CLA VARCHAR(50), IN IDPUES int(11))
+BEGIN
+	INSERT INTO `cd_usuario_tb` (`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`)
+		VALUES (CEDU, NOM, APE1, APE2);
+	INSERT INTO `cd_info_usu_td` (`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`)
+		VALUES (CEDU, TEL, COR, USU, CLA, IDPUES);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_usuario_info_tb_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_usuario_info_tb_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_listar`()
+BEGIN
+SELECT `cd_usuario_tb`.`cd_usu_cedula`,cd_usuario_tb.`cd_usu_nombre`,cd_usuario_tb.`cd_usu_ape1`,cd_usuario_tb.`cd_usu_ape2`,
+`cd_info_usu_td`.`cd_usu_telefono`,cd_info_usu_td.`cd_usu_correo`,`cd_puestos_tb`.`cd_descripcion_pues`
+ FROM `cd_usuario_tb`
+	inner join `cd_info_usu_td`
+		on cd_usuario_tb.`cd_usu_cedula` = cd_info_usu_td.`cd_usu_cedula`
+		
+			inner join cd_puestos_tb
+				on `cd_info_usu_td`.`cd_usu_idpuesto` = cd_puestos_tb.`cd_usu_idpuesto` ;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_usuario_info_tb_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_usuario_info_tb_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_modificar`(IN CEDU INT(11),
+ IN NOM VARCHAR(50), IN APE1 VARCHAR(50), IN APE2 VARCHAR(50),
+  IN TEL VARCHAR(50), IN COR VARCHAR(100), IN IDPUES INT(11))
+BEGIN
+	UPDATE `cd_usuario_tb`
+		SET `cd_usu_nombre` = NOM,
+		`cd_usu_ape1` = APE1,
+		`cd_usu_ape2` = APE2
+			WHERE `cd_usu_cedula` = CEDU;
+			UPDATE `cd_info_usu_td` 
+				SET `cd_usu_telefono` = TEL,
+				`cd_usu_correo` = COR,
+				`cd_usu_idpuesto` = IDPUES
+					WHERE cd_usu_cedula = CEDU;
 END */$$
 DELIMITER ;
 

@@ -1,5 +1,10 @@
 <?php 
 require_once 'model/classlogin.php';
+?>
+<link rel="stylesheet" href="assets/alertifyjs/css/alertify.min.css">
+<script src="assets/alertifyjs/alertify.min.js"></script>
+<?php
+//require_once 'view/login.php';
 class classloginController {
 	//Definición de variables
 	private $classlogin;
@@ -7,6 +12,7 @@ class classloginController {
 	private $existe_usuario;
 	private $puesto;
 	private $acceso;
+	private $claveerronea;
 
 	function __construct() {
 		$this->classlogin =  new classlogin();
@@ -17,36 +23,38 @@ class classloginController {
 	}
 
 	public function login(){
-		if ($_POST) {
-			$this->classlogin->setAtributo('usuario', $_POST['usuario']);
-			$this->classlogin->setAtributo('clave', $_POST['clave']);
-			$idusuario 		= (int)$this->classlogin->obtUsaurioID($_POST['usuario'],$_POST['clave']); 
-			//$existe_usuario = $this->classlogin->existeUsuario($idusuario, $_POST['usuario'], $_POST['clave']);
-			echo $idusuario;
-			//echo $existe_usuario;
-			if ($idusuario == NULL) {
-				echo "<script> alertify.alert('Alerta','El ID del usuario no existe');</script>";
-				?>
-				 <script>
-				 	alertify.alert('Alerta','El ID del usuario no existe');
-				 </script>
-				<?php	
-			} 
-			else {
-				/*if ($existe_usuario == 'S') {
+		if ($_POST['submit']) {
+			if ($_POST) {
+				$this->classlogin->setAtributo('usuario', $_POST['usuario']);
+				$this->classlogin->setAtributo('clave', $_POST['clave']);
+				$idusuario 		= $this->classlogin->obtUsaurioID($_POST['usuario'], $_POST['clave']);
+				$existe_usuario = $this->classlogin->existeUsuario($idusuario[0], $_POST['usuario'], $_POST['clave']);
+				if ($idusuario == NULL) {
 					?>
-					<script>
-						alertify.alert('Alerta','Sí existe usuario');
-					</script>
+					 <script>
+					 	alertify.alert('Alerta','El ID del usuario no existe');
+					 </script>
 					<?php
 				} 
 				else {
+					echo "estas aca";
 					?>
-					<script>
-						alertify.alert('Alerta','No existe usuario');
-					</script>
+					 <script>
+					 	alertify.alert('Alerta','Exite: '.$existe_usuario[0]);
+					 </script>
 					<?php
-				}*/
+					if ($existe_usuario == 'S') {
+						echo "ahora aca";
+						header('location: ?c=classprincipal&m=index');
+					} 
+					else {
+						?>
+						<script>
+							alertify.alert('Alerta','No existe usuario');
+						</script>
+						<?php
+					}
+				}
 			}
 		}
 	}

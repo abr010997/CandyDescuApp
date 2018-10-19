@@ -89,6 +89,9 @@ CREATE TABLE `cd_info_usu_td` (
 
 /*Data for the table `cd_info_usu_td` */
 
+insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`) values 
+(504080437,'86646556','alberthive@gmail.com','arubato','123',1);
+
 /*Table structure for table `cd_infohistorial_tb` */
 
 DROP TABLE IF EXISTS `cd_infohistorial_tb`;
@@ -114,7 +117,9 @@ CREATE TABLE `cd_puestos_tb` (
 
 insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) values 
 (1,'Administrador'),
-(2,'Cajero');
+(2,'Cajero'),
+(3,'wee'),
+(4,'Alv');
 
 /*Table structure for table `cd_usuario_tb` */
 
@@ -139,8 +144,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `cd_factura_tb_bi` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `cd_factura_tb_bi` BEFORE INSERT ON `cd_factura_tb` FOR EACH ROW 
-  BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `cd_factura_tb_bi` BEFORE INSERT ON `cd_factura_tb` FOR EACH ROW BEGIN
     IF NEW.cd_fac_fecha is null then
 	SET NEW.cd_fac_fecha = SYSDATE();
     end if;
@@ -162,6 +166,26 @@ DELIMITER $$
 
 DELIMITER ;
 
+/* Function  structure for function  `fn_acceso_puesto` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_acceso_puesto` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_acceso_puesto`(
+  puesto VARCHAR(50)
+  ) RETURNS varchar(50) CHARSET latin1
+BEGIN
+  declare vAcceso Varchar(50);
+  if puesto = 'Administrador' then
+	select '' into vAcceso;
+  elseif puesto = 'Cajero' then
+	select '?c=classprincipal&m=index' into vAcceso;
+  end if;
+  
+  return vAcceso;
+END */$$
+DELIMITER ;
+
 /* Function  structure for function  `fn_existe_usuario` */
 
 /*!50003 DROP FUNCTION IF EXISTS `fn_existe_usuario` */;
@@ -173,7 +197,7 @@ DELIMITER $$
   clave     varchar(50)  
   ) RETURNS varchar(1) CHARSET latin1
 BEGIN
-  DECLARE vNoMoreRows Integer;
+  DECLARE vNoMoreRows Integer DEFAULT 0;
   DECLARE vExiste VARCHAR(1);
   Declare cExiste cursor for
   select 'S' 
@@ -185,7 +209,7 @@ BEGIN
   open cExiste;
   myloop : loop
 	fetch cExiste into vExiste;
-	if vNoMoreRows then
+	if vNoMoreRows = 1 then
 		leave myloop;
 	end if;
   end loop;
@@ -195,6 +219,43 @@ BEGIN
   end if;
   return vExiste;
 eND */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_obt_puesto` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_obt_puesto` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_obt_puesto`(
+  idusuario int(11)
+  ) RETURNS varchar(50) CHARSET latin1
+BEGIN
+  declare vNoMoreRows integer default 0;
+  declare vPuesto varchar(50);
+  
+  declare cPuesto cursor for
+  select `cd_descripcion_pues`
+  from `cd_puestos_tb`, `cd_info_usu_td`
+  where `cd_info_usu_td`.`cd_usu_cedula` = idusuario
+  and `cd_info_usu_td`.`cd_usu_idpuesto` = `cd_puestos_tb`.`cd_usu_idpuesto`;
+  
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET vNoMoreRows = 1;
+  
+  open cPuesto;
+  myloop : Loop
+	fetch cPuesto into vPuesto;
+	if vNoMoreRows = 1 Then
+		leave myloop;
+	end if; 
+  end loop myloop;
+  Close cPuesto;
+  
+  if vPuesto is null then
+	select 'Invitado' into vPuesto;
+  end if;
+  
+  return vPuesto;
+END */$$
 DELIMITER ;
 
 /* Function  structure for function  `fn_obt_usuario_id` */
@@ -207,7 +268,7 @@ DELIMITER $$
   clave varchar(50)  
   ) RETURNS int(11)
 BEGIN
-  declare vNoMoreRows integer;
+  declare vNoMoreRows integer default 0;
   declare vID int(11);
   Declare cID cursor for
   select `cd_usu_cedula` 
@@ -218,16 +279,134 @@ BEGIN
   open cID;
   myloop : loop
 	fetch cID into vID;
-	if vNoMoreRows then
+	if vNoMoreRows = 1 then
 		leave myloop;
 	end if;
-  end loop;
+  end loop myloop;
   close cID;
   if vID is null then
 	select null into vID;
   end if;
   return vID;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_cliente_buscar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cliente_buscar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_cliente_buscar`(IN IDCLI INT(11))
+BEGIN
+SELECT `cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`
+FROM `cd_cliente_tb`
+WHERE `cd_cli_cedula` = IDCLI;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_cliente_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cliente_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_cliente_eliminar`(IN IDCLI INT(11))
+BEGIN
+DELETE FROM `cd_cliente_tb`
+ WHERE `cd_cli_cedula` = IDCLI;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_cliente_guardar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cliente_guardar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_cliente_guardar`(IN CEDULA INT(11), IN NOM VARCHAR(50), 
+IN APE1 VARCHAR(50), IN APE2 VARCHAR(50))
+BEGIN
+INSERT INTO `cd_cliente_tb` (`cd_cli_cedula`, `cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`)
+VALUES (CEDULA, NOM, APE1, APE2);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_cliente_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cliente_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_cliente_listar`()
+BEGIN
+SELECT `cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`
+ FROM `cd_cliente_tb`;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_puestos_buscar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_puestos_buscar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_puestos_buscar`(id_puesto INT(11))
+BEGIN
+		select `cd_usu_idpuesto`,`cd_descripcion_pues` from `cd_puestos_tb`
+		where`cd_usu_idpuesto`=id_puesto;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_puestos_editar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_puestos_editar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_puestos_editar`(id_puesto INT(11), des_puesto VARCHAR(50))
+BEGIN
+    UPDATE `cd_puestos_tb` 
+	SET `cd_descripcion_pues` = des_puesto
+     WHERE `cd_usu_idpuesto` = id_puesto;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_puestos_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_puestos_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_puestos_eliminar`(id_puesto INT(11))
+BEGIN
+	delete from `cd_puestos_tb`
+	where`cd_usu_idpuesto`=id_puesto;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_puestos_guardar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_puestos_guardar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_puestos_guardar`(id_puesto INT(11), des_puesto VARCHAR(50))
+BEGIN
+	INSERT INTO `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) VALUES (id_puesto,des_puesto);	
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_puestos_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_puestos_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_puestos_listar`()
+BEGIN
+	SELECT * FROM cd_puestos_tb;	
+    END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `sp_cd_puestos_registra` */

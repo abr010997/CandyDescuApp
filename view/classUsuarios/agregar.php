@@ -1,6 +1,7 @@
     
   <center><h2>Agregar nuevo usuario</h2></center>
     <form action="?c=classusuarios&m=agregar" method="post">
+    <div class="col-sm-offset-4 col-sm-4">
       <div class="form-group">
         <label for="cd_usu_cedula">Cédula:</label>
         <input type="text" class="form-control" id="cd_usu_cedula" name="cd_usu_cedula">
@@ -17,10 +18,6 @@
         <label for="cd_usu_ape2">Segundo Apellido:</label>
         <input type="text" class="form-control" id="cd_usu_ape2" name="cd_usu_ape2">
       </div>
-
-
-
-      
       <div class="form-group">
         <label for="cd_usu_telefono">Teléfono:</label>
         <input type="text" class="form-control" id="cd_usu_telefono" name="cd_usu_telefono">
@@ -38,10 +35,11 @@
         <input type="text" class="form-control" id="cd_usu_contrasena" name="cd_usu_contrasena">
       </div>
       <div class="form-group">
-        <label for="cd_usu_contrasena">Puesto:</label>
-        <input type="text" class="form-control" id="cd_usu_idpuesto" name="cd_usu_contrasena">
+        <label for="cd_usu_idpuesto">Puesto:</label>
+        <input type="text" class="form-control" id="cd_usu_idpuesto" name="cd_usu_idpuesto">
       </div>
 
       <button type="submit" class="btn btn-success">Guardar Usuario</button> 
-      <a href="?c=classusuarios&m=index" class="btn btn-danger" role="button">Regresar</a>    
+      <a href="?c=classusuarios&m=index" class="btn btn-danger" role="button">Regresar</a>  
+      </div>  
      </form>

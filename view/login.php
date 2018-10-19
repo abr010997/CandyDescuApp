@@ -27,7 +27,7 @@
                                     </h4>
                                 </strong>
                             </center>
-                        <form class="form-signin" action="?c=classlogin&m=login" method="post" accept-charset="UTF-8" role="form">
+                        <form class="form-signin" action="?c=classlogin&m=test_login" method="post" accept-charset="UTF-8" role="form">
                             <fieldset>
                                 <label class="panel-login">
                                     <div class="login_result"></div>

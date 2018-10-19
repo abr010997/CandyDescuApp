@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.5.5-10.1.26-MariaDB : Database - candydecuapp
+MySQL - 5.5.5-10.1.36-MariaDB : Database - candydecuapp
 *********************************************************************
 */
 
@@ -30,7 +30,7 @@ CREATE TABLE `cd_cliente_tb` (
 
 /*Data for the table `cd_cliente_tb` */
 
-insert  into `cd_cliente_tb`(`cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`) values (504080437,'Alberth','Espinoza','Ortiz');
+insert  into `cd_cliente_tb`(`cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`) values (504050029,'Mauricio','Chevez','Gutierrez'),(504080437,'Alberth','Espinoza','Ortiz');
 
 /*Table structure for table `cd_factura_tb` */
 
@@ -86,7 +86,7 @@ CREATE TABLE `cd_info_usu_td` (
 
 /*Data for the table `cd_info_usu_td` */
 
-insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`) values (11,'889900','qa@test.com','Alberthea','123',2);
+insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`) values (11,'889900','qa@test.com','Alberthea','123',2),(504050029,'85875657 ','Mau@che.com ','Admin','123',1);
 
 /*Table structure for table `cd_infohistorial_tb` */
 
@@ -111,7 +111,7 @@ CREATE TABLE `cd_puestos_tb` (
 
 /*Data for the table `cd_puestos_tb` */
 
-insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) values (1,'Administrador'),(2,'Cajero'),(3,'wee'),(4,'Alv');
+insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) values (1,'Administrador'),(2,'Cajero'),(3,'wee');
 
 /*Table structure for table `cd_usuario_tb` */
 
@@ -127,7 +127,7 @@ CREATE TABLE `cd_usuario_tb` (
 
 /*Data for the table `cd_usuario_tb` */
 
-insert  into `cd_usuario_tb`(`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`) values (11,'Alberth','Esquivel','Alvarado');
+insert  into `cd_usuario_tb`(`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`) values (11,'Alberth','Esquivel','Alvarado'),(504050029,'Mauricio ','ChÃ©vez ','GutiÃ©rrez ');
 
 /* Trigger structure for table `cd_factura_tb` */
 
@@ -296,6 +296,22 @@ WHERE `cd_cli_cedula` = IDCLI;
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_cd_cliente_editar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cliente_editar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_cliente_editar`(id_cliente INT(11), nom_cliente VARCHAR(50),ape1_cliente VARCHAR(50),ape2_cliente VARCHAR(50))
+BEGIN
+	UPDATE `cd_cliente_tb`
+	SET `cd_cli_nombre` = nom_cliente,
+	`cd_cli_ape1`=ape1_cliente,
+	`cd_cli_ape2`=ape2_cliente
+     WHERE `cd_cli_cedula` = id_cliente;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_cd_cliente_eliminar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cliente_eliminar` */;
@@ -333,6 +349,28 @@ DELIMITER $$
 BEGIN
 SELECT `cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`
  FROM `cd_cliente_tb`;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_login` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_login` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_login`(
+  usuario VARCHAR(50), 
+  clave VARCHAR(50)
+  )
+BEGIN
+ SELECT `cd_info_usu_td`.`cd_usu_usuario`, 
+	`cd_puestos_tb`.`cd_usu_idpuesto`, 
+	`cd_puestos_tb`.`cd_descripcion_pues`
+ FROM `cd_usuario_tb`
+ INNER JOIN `cd_info_usu_td` ON `cd_usuario_tb`.`cd_usu_cedula` = `cd_info_usu_td`.`cd_usu_cedula`
+ INNER JOIN `cd_puestos_tb` ON `cd_info_usu_td`.`cd_usu_idpuesto` = `cd_puestos_tb`.`cd_usu_idpuesto`
+ WHERE `cd_info_usu_td`.`cd_usu_usuario` = usuario 
+ AND `cd_info_usu_td`.`cd_usu_contraseña` = clave;
 END */$$
 DELIMITER ;
 

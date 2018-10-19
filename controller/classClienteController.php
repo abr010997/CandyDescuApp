@@ -30,20 +30,22 @@ class classClienteController
 			require_once 'view/footer.php';
 		}
 	}
-	// public function editar()
-	// {
-	// 	if ($_POST) {
-	// 		$this->classCliente->setAtributo('cd_cli_cedula',$_POST['cd_cli_cedula']);
-	// 		$this->classCliente->setAtributo('cd_cli_nombre',$_POST['cd_cli_nombre']);
-	// 		$this->classCliente->actualizar();
-	// 		header('location:?c=classCliente&m=index');
-	// 	}
-	// 	else{
-	// 		$this->classCliente = $this->classCliente->buscar($_REQUEST['id']);
-	// 		require_once 'view/header.php';
-	// 		require_once 'view/classCliente/editar.php';
-	// 		require_once 'view/footer.php';		}
-	// 	}
+	 public function editar()
+	 {
+	 	if ($_POST) {
+	 		$this->classCliente->setAtributo('cd_cli_cedula',$_POST['cd_cli_cedula']);
+			$this->classCliente->setAtributo('cd_cli_nombre',$_POST['cd_cli_nombre']);
+			$this->classCliente->setAtributo('cd_cli_ape1',$_POST['cd_cli_ape1']);
+			$this->classCliente->setAtributo('cd_cli_ape2',$_POST['cd_cli_ape2']);
+	 		$this->classCliente->actualizar();
+			header('location:?c=classCliente&m=index');
+	 	}
+	 	else{
+			$this->classCliente = $this->classCliente->buscar($_REQUEST['id']);
+			require_once 'view/header.php';
+			require_once 'view/classCliente/editar.php';
+			require_once 'view/footer.php';		}
+	 	}
 
 	public function eliminar()
 	{

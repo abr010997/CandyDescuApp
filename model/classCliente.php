@@ -49,7 +49,7 @@ class classCliente  extends Conexion
 
 	public function actualizar()
 	{
-		$sql = "CALL SP03_PUESTOS_ACTUALIZAR ('$this->cd_cli_cedula','$this->cd_cli_nombre');";
+		$sql = "CALL sp_cd_cliente_editar ('$this->cd_cli_cedula','$this->cd_cli_nombre','$this->cd_cli_ape1','$this->cd_cli_ape2');";
 		$this->conexion->consultaSimple($sql);
 	}
 

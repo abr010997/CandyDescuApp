@@ -7,8 +7,7 @@
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="assets/login.css">
-    <link rel="stylesheet" href="assets/alertifyjs/alertify.min.css">
-    <link rel="stylesheet" href="assets/alertifyjs/alertify.rtl.min.css">
+    <link rel="stylesheet" href="assets/alertifyjs/css/alertify.min.css">
 </head>
 <body>
     <div class="container">
@@ -17,10 +16,17 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">                     
                         <div class="row-fluid user-row">
-                            <img src="assets/imagenes/planificacion.jpg" class="img-thumbnail img-responsive" alt="Conxole Admin"/>
+                            <img src="assets/imagenes/candy.png" class="img-thumbnail img-responsive" alt="Conxole Admin">
                         </div>
                     </div>
                     <div class="panel-body">
+                        <center>
+                                <strong>
+                                    <h4>
+                                    CandyDescu
+                                    </h4>
+                                </strong>
+                            </center>
                         <form class="form-signin" action="?c=classlogin&m=login" method="post" accept-charset="UTF-8" role="form">
                             <fieldset>
                                 <label class="panel-login">
@@ -40,7 +46,7 @@
     <footer>
 	    <div class="container-fluid">
 	        <div class="text-center">
-	          <small>Derechos Reservados Planificación Urbana 2018</small>
+	          <small>Derechos Reservados 2018</small>
 	        </div>
 	    </div>
 	</footer>

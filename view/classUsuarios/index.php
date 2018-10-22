@@ -1,8 +1,8 @@
 <?php $result = $this->classusuarios->listar(); ?>
 
-  <center><h2>Listado de usuarios</h2></center>  
+  <center><h2>Listado de usuarios.</h2></center>  
   <div class="col-sm-offset-2 col-sm-8">   
-  <a  href="?c=classusuarios&m=agregar" class="btn btn-primary" role="button">Registrar usuario</a>    
+  <a  href="?c=classusuarios&m=agregar" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-plus"></span> Registrar Usuario</a>    
   <br>
   <br>    
   <?php if ($result->num_rows): ?>

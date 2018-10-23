@@ -1,7 +1,7 @@
 <?php $result = $this->classpuestos->listar(); ?>
-       <center><h2>Listado de puestos</h2> </center> 
+       <center><h2>Listado de puestos.</h2> </center> 
        <div class="col-sm-offset-2 col-sm-8">  
-    <a href="?c=classpuestos&m=agregar"  class="btn btn-primary" role="button">Registrar puesto</a>
+    <a href="?c=classpuestos&m=agregar"  class="btn btn-primary" role="button"><span class="glyphicon glyphicon-plus"></span> Registrar Puesto</a>
    <br>
    <br>   
     <?php if ($result->num_rows): ?>

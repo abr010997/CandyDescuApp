@@ -10,8 +10,7 @@
 						<li class="list-group-item"><strong>Apellido 1 : </strong><?php echo $this->classCliente->getAtributo('cd_cli_ape1');?></li>
 						<li class="list-group-item"><strong>Apellido 2 : </strong><?php echo $this->classCliente->getAtributo('cd_cli_ape2');?></li>	
 					</ul>
-					<a href="?c=classCliente&m=index" class="btn btn-danger" role="button"><span class="
-glyphicon glyphicon-triangle-left"></span> Regresar</a>  
+					<a href="?c=classCliente&m=index" class="btn btn-danger" role="button">Regresar</a>  
 
 				</div>
 			</div>

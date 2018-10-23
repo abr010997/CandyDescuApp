@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>CandyDescu</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="assets/datatables.js"></script>
-  <script src="assets/datatables.min.js"></script>
+  <link rel="ico" href="assets/imagenes/candy.png">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="assets/alertifyjs/css/alertify.min.css">
   
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
@@ -48,16 +47,36 @@
         <li class="active"><a href="?c=classprincipal&m=index">Inicio</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="?c=classusuarios"><span class="glyphicon glyphicon-wrench"></span> Usuarios</a></li>
-            <li><a href="?c=classCliente"><span class="glyphicon glyphicon-wrench"></span> Clientes</a></li>
-            <li><a href="?c=classpuestos"><span class="glyphicon glyphicon-wrench"></span> Puestos</a></li>
+            <li><a href="?c=classusuarios">Usuarios</a></li>
+            <li><a href="?c=classCliente">Clientes</a></li>
+            <li><a href="?c=classpuestos">Puestos</a></li>
           </ul>
         </li>
         <li><a href="#">Juego</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li>
+          <a>
+            <span class="glyphicon glyphicon-user">
+              <?php 
+              session_start();
+              if(isset($_SESSION['usuario']) && isset($_SESSION['puesto'])) {
+              $usuario = $_SESSION['usuario'];
+               echo($usuario);
+               $puesto = $_SESSION['puesto'];
+
+              } else {
+                header("Location: ?c=classlogin&m=index");
+              }
+              ?>
+               | 
+              <?php 
+               echo($puesto);
+              ?>
+            </span>
+          </a>
+        </li>
+        <li><a onclick="cerrarSesion()"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
       </ul>
     </div>
   </nav>

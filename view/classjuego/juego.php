@@ -7,7 +7,7 @@
 <div class="col-sm-offset-4 col-sm-4">
      <br />
      <br />
-    <button type="button" class="btn btn btn-success"value="Girar" onclick="miRuleta.startAnimation();">Jugar</button>
+    <button type="button" class="btn btn btn-success"value="Girar" onclick="miRuleta.startAnimation();"><span class="glyphicon glyphicon-play"></span> Jugar</button>
     
     <br />
     <br />
@@ -22,10 +22,10 @@
                 { 'fillStyle': '#2ecc71', 'text': 'Premio 2' },
                 { 'fillStyle': '#e67e22', 'text': 'Premio 3' },
                 { 'fillStyle': '#e74c3c', 'text': 'Confite' },
-                { 'fillStyle': '#8e44ad', 'text': 'Premio 5' },
-                { 'fillStyle': '#f1c40f', 'text': 'Premio 6' },
-                { 'fillStyle': '#2ecc71', 'text': 'Premio 7' },
-                { 'fillStyle': '#e67e22', 'text': 'Premio 9' },
+                { 'fillStyle': '#8e44ad', 'text': 'Premio 4' },
+                { 'fillStyle': '#f1c40f', 'text': 'Premio 5' },
+                { 'fillStyle': '#2ecc71', 'text': 'Confite' },
+                { 'fillStyle': '#e67e22', 'text': 'Premio 6' },
                 { 'fillStyle': '#e74c3c', 'text': 'Confite' },
                
             ],

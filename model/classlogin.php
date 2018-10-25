@@ -29,18 +29,20 @@ class classlogin extends Conexion
 	public function obtUsaurioID($usuario, $clave){
 		$sql 	= "SELECT fn_obt_usuario_id('".$usuario."', '".$clave."');";
 		$result = $this->conexion->consultaRetorno($sql);
-		return $result;
+		$row 	= mysqli_fetch_row($result); 
+		return $row;
 	}
 
 	public function existeUsuario($idsuario, $usuario, $clave){
-		$sql 	= "SELECT fn_existe_usuario('".$idsuario."','".$usuario."', '".$clave."');";
+		$sql 	= "SELECT fn_existe_usuario('".$idsuario."', '".$usuario."', '".$clave."');";
 		$result = $this->conexion->consultaRetorno($sql);
-		return $result;
+		$row 	= mysqli_fetch_row($result); 
+		return $row;
 	}
 	//
 
 	public function entrar($usuario, $clave){
-		$sql = "CALL LOGIN('".$usuario."','".$clave."');";
+		$sql = "CALL sp_cd_login('".$usuario."','".$clave."');";
 		$result = $this->conexion->consultaRetorno($sql);
 		if ( $fila = mysqli_fetch_row($result) ) {
 			session_start();

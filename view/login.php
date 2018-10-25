@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>SCRPU</title>
+	<title>CandyDescu</title>
 	
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="assets/login.css">
-    <link rel="stylesheet" href="assets/alertifyjs/alertify.min.css">
-    <link rel="stylesheet" href="assets/alertifyjs/alertify.rtl.min.css">
+    
 </head>
 <body>
     <div class="container">
@@ -17,10 +16,17 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">                     
                         <div class="row-fluid user-row">
-                            <img src="assets/imagenes/planificacion.jpg" class="img-thumbnail img-responsive" alt="Conxole Admin"/>
+                            <img src="assets/imagenes/candy.png" class="img-thumbnail img-responsive" alt="Conxole Admin">
                         </div>
                     </div>
                     <div class="panel-body">
+                        <center>
+                                <strong>
+                                    <h4>
+                                    CandyDescu
+                                    </h4>
+                                </strong>
+                            </center>
                         <form class="form-signin" action="?c=classlogin&m=login" method="post" accept-charset="UTF-8" role="form">
                             <fieldset>
                                 <label class="panel-login">
@@ -28,8 +34,8 @@
                                 </label>
                                 <input class="form-control" placeholder="Usuario" id="usuario" name="usuario" type="text">
                                 <input class="form-control" placeholder="Contraseña" id="clave" name="clave" type="password">
-                                <br></br>
-                                <input class="btn btn-lg btn-success btn-block" type="submit" id="submit" name="submit" value="Iniciar »">
+                                <br>
+                                <input class="btn btn-lg btn-success btn-block" type="submit" name="submit" id="submit" value="Iniciar Sesión">
                             </fieldset>
                         </form>
                     </div>
@@ -40,7 +46,7 @@
     <footer>
 	    <div class="container-fluid">
 	        <div class="text-center">
-	          <small>Derechos Reservados Planificación Urbana 2018</small>
+	          <small>Derechos Reservados 2018</small>
 	        </div>
 	    </div>
 	</footer>

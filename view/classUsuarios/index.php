@@ -1,7 +1,8 @@
-<?php $result = $this->class0102usuarios->listar(); ?>
+<?php $result = $this->classusuarios->listar(); ?>
 
-  <center><h2>Listado de usuarios</h2></center>   
-  <a  href="?c=class0102usuarios&m=agregar" class="btn btn-primary" role="button">Registrar usuario</a>    
+  <center><h2>Listado de usuarios</h2></center>  
+  <div class="col-sm-offset-2 col-sm-8">   
+  <a  href="?c=classusuarios&m=agregar" class="btn btn-primary" role="button">Registrar usuario</a>    
   <br>
   <br>    
   <?php if ($result->num_rows): ?>
@@ -34,9 +35,9 @@
             <div class="dropdown">
               <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Opciones<span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li><a href="?c=class0102usuarios&m=editar&id=<?php echo $row[0]; ?>"><span class="glyphicon glyphicon-pencil"></span> Editar</a></li>
-                  <li><a href="?c=class0102usuarios&m=eliminar&id=<?php echo $row[0]; ?>"><span class="glyphicon glyphicon-trash"></span> Eliminar</a></li>
-                  <li><a href="?c=class0102usuarios&m=ver&id=<?php echo $row[0]; ?>"><span class="glyphicon glyphicon-eye-open"></span> ver</a></li>
+                  <li><a href="?c=classusuarios&m=editar&id=<?php echo $row[0]; ?>"><span class="glyphicon glyphicon-pencil"></span> Editar</a></li>
+                  <li><a href="?c=classusuarios&m=eliminar&id=<?php echo $row[0]; ?>"><span class="glyphicon glyphicon-trash"></span> Eliminar</a></li>
+                  <li><a href="?c=classusuarios&m=ver&id=<?php echo $row[0]; ?>"><span class="glyphicon glyphicon-eye-open"></span> ver</a></li>
                 </ul>
             </div></td>
           </tr>
@@ -48,4 +49,6 @@
         <?php endif ?>
     </tbody>
   </table>
+  </div>
+
 

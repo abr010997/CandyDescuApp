@@ -4,21 +4,30 @@
         <script src="assets/js/Winwheel.min.js"></script>
         <script src="assets/js/TweenMax.min.js"></script>
 
-    <input type="button" value="Girar" onclick="miRuleta.startAnimation();" />
+<div class="col-sm-offset-4 col-sm-4">
+     <br />
+     <br />
+    <button type="button" class="btn btn btn-success"value="Girar" onclick="miRuleta.startAnimation();">Jugar</button>
+    
     <br />
     <br />
     <canvas id='canvas' height="400" width="400"></canvas>
 
  <script>
      var miRuleta = new Winwheel({
-           'numSegments': 5, // Número de segmentos
+           'numSegments': 9, // Número de segmentos
            'outerRadius'    : 170, // Radio externo
             'segments':[ // Datos de los segmentos
-                { 'fillStyle': '#f1c40f', 'text': 'CSharp' },
-                { 'fillStyle': '#2ecc71', 'text': 'JavaScript' },
-                { 'fillStyle': '#e67e22', 'text': 'Python' },
-                { 'fillStyle': '#e74c3c', 'text': 'Php' },
-                { 'fillStyle': '#8e44ad', 'text': 'Go' },
+                { 'fillStyle': '#f1c40f', 'text': 'Premio 1' },
+                { 'fillStyle': '#2ecc71', 'text': 'Premio 2' },
+                { 'fillStyle': '#e67e22', 'text': 'Premio 3' },
+                { 'fillStyle': '#e74c3c', 'text': 'Confite' },
+                { 'fillStyle': '#8e44ad', 'text': 'Premio 5' },
+                { 'fillStyle': '#f1c40f', 'text': 'Premio 6' },
+                { 'fillStyle': '#2ecc71', 'text': 'Premio 7' },
+                { 'fillStyle': '#e67e22', 'text': 'Premio 9' },
+                { 'fillStyle': '#e74c3c', 'text': 'Confite' },
+               
             ],
             'animation': { 
                 'type': 'spinToStop', // Giro y alto
@@ -51,3 +60,4 @@
             ctx.fill();                  
        }
  </script>  
+</div>

@@ -14,8 +14,7 @@
 					<li class="list-group-item"><strong>Puesto: </strong><?php echo $this->classusuarios->getAtributo('cd_usu_idpuesto');?></li>
 						
 					</ul>
-					<a href="?c=classusuarios&m=index" class="btn btn-danger" role="button"><span class="
-glyphicon glyphicon-triangle-left"></span> Regresar</a> 
+					<a href="?c=classusuarios&m=index" class="btn btn-danger" role="button">Regresar</a>  
 
 				</div>
 			</div>

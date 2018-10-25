@@ -34,7 +34,7 @@
         <input type="text" class="form-control" id="cd_usu_idpuesto" name="cd_usu_idpuesto" value="<?php echo $this->classusuarios->getAtributo('cd_usu_idpuesto');?> ">
       </div>
 
-      <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-saved"></span> Editar Usuario</button> 
-      <a href="?c=classusuarios&m=index" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>   
+      <button type="submit" class="btn btn-success">Editar Usuario</button> 
+      <a href="?c=classusuarios&m=index" class="btn btn-danger" role="button">Regresar</a>   
       </div> 
     </form>

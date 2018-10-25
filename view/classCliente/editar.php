@@ -14,15 +14,15 @@
         <input type="text" class="form-control" id="cd_cli_nombre" name="cd_cli_nombre" value="<?php echo $this->classCliente->getAtributo('cd_cli_nombre');?> " >
       </div>
       <div class="form-group">
-        <label for="cd_cli_ape1">Primer Apellido:</label>
+        <label for="cd_cli_ape1">Apellido 1:</label>
         <input type="text" class="form-control" id="cd_cli_ape1" name="cd_cli_ape1" value="<?php echo $this->classCliente->getAtributo('cd_cli_ape1');?> " >
       </div>
       <div class="form-group">
-        <label for="cd_cli_ape2">Segundo Apellido:</label>
+        <label for="cd_cli_ape2">Apellido 2:</label>
         <input type="text" class="form-control" id="cd_cli_ape2" name="cd_cli_ape2" value="<?php echo $this->classCliente->getAtributo('cd_cli_ape2');?> " >
       </div>
-      <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-saved"></span> Editar Puesto</button> 
-      <a href="?c=classCliente&m=index" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>  
+      <button type="submit" class="btn btn-success">Editar puesto</button> 
+      <a href="?c=classCliente&m=index" class="btn btn-danger" role="button">Regresar</a>    
       </div>
     </form>
   

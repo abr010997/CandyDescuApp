@@ -1,5 +1,5 @@
     
-  <center><h2>Agregar nuevo usuario.</h2></center>
+  <center><h2>Agregar nuevo usuario</h2></center>
     <form action="?c=classusuarios&m=agregar" method="post">
     <div class="col-sm-offset-4 col-sm-4">
       <div class="form-group">
@@ -39,7 +39,7 @@
         <input type="text" class="form-control" id="cd_usu_idpuesto" name="cd_usu_idpuesto">
       </div>
 
-      <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar Usuario</button> 
-      <a href="?c=classusuarios&m=index" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>  
+      <button type="submit" class="btn btn-success">Guardar Usuario</button> 
+      <a href="?c=classusuarios&m=index" class="btn btn-danger" role="button">Regresar</a>  
       </div>  
      </form>

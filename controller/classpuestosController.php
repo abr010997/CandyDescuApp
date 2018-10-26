@@ -10,7 +10,7 @@ class classpuestosController
 	}
 	public function index()
 	{
-		require_once 'view/header.php';
+		require_once 'view/header_app.php';
 		require_once 'view/classpuestos/index.php';
 		require_once 'view/footer.php';
 	}
@@ -23,7 +23,7 @@ class classpuestosController
 			header('location:?c=classpuestos&m=index');
 		}
 		else{
-			require_once 'view/header.php';
+			require_once 'view/header_app.php';
 			require_once 'view/classpuestos/agregar.php';
 			require_once 'view/footer.php';
 		}
@@ -38,7 +38,7 @@ class classpuestosController
 		}
 		else{
 			$this->classpuestos = $this->classpuestos->buscar($_REQUEST['id']);
-			require_once 'view/header.php';
+			require_once 'view/header_app.php';
 			require_once 'view/classpuestos/editar.php';
 			require_once 'view/footer.php';		}
 		}
@@ -53,7 +53,7 @@ class classpuestosController
 	public function ver()
 	{
 		$this->classpuestos = $this->classpuestos->buscar($_REQUEST['id']);
-		require_once 'view/header.php';
+		require_once 'view/header_app.php';
 		require_once 'view/classpuestos/ver.php';
 		require_once 'view/footer.php';
 	}

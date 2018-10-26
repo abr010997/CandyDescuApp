@@ -103,6 +103,33 @@ class classloginController {
 		}
 	}
 
+	public function cambiar_clave(){
+		if (isset($_POST["submit"])) {
+			try{
+				if (empty($_POST["correo"] || $_POST["usuario"] || $_POST["clave"])) {
+					throw new Exception("correo y usuario son incorrectos");
+				} else {
+					if ($_POST) {
+						$this->classlogin->setAtributo('correo',$_POST['correo']);
+						$this->classlogin->setAtributo('usuario',$_POST['usuario']);
+						$this->classlogin->setAtributo('clave',$_POST['clave']);
+						$this->classlogin->cambiar_clave($_POST['correo'],$_POST['usuario'],$_POST["clave"]);
+					} else {
+						require_once 'view/login.php';
+					}
+				}
+			}
+			catch (Exception $e) {
+				?>
+				<script>
+					alert("correo y usuario estan vacios");
+					location.href = "?c=classlogin&m=index";
+				</script>
+				<?php
+		    }
+		}
+	}
+
 	public function test_login(){
 		if (isset($_POST["submit"])) {
 			try{

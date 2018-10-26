@@ -1,12 +1,12 @@
 function cerrarSesion(){
     alertify.confirm( 
-        'Confirm Title', 
-        'Confirm Message', 
+        'Cerrar Sesión', 
+        '¿Desea salir?', 
         function(){ 
-            window.location = "?c=classlogin&m=index"
-            alertify.success('Ok') }, 
+            window.location = "?c=classinicio&m=index" 
+            alertify.success('Ok') },
         function(){ 
-            alertify.error('Cancel')
+            alertify.error('Cancelar')
         }
     );
 }

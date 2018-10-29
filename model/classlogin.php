@@ -61,6 +61,13 @@ class classlogin extends Conexion
 		return $result;
 	}
 
+	public function cambiar_clave($correo,$usuario,$clave)
+	{
+		$sql = "CALL sp_cd_cambiarclave('".$correo."','".$usuario."','".$clave."');";
+		$result = $this->conexion->consultaRetorno($sql);
+		return $result;
+	}
+
 	public function convertToclasslogin($result)
 	{
 		$classlogin = new classlogin();

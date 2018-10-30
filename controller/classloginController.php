@@ -154,22 +154,25 @@ class classloginController {
 								header("Location: ?c=class03puestos&m=index");
 							}
 						} else {
+							echo "Aca";
 							?>
 							<script>
-								alert("Usuario y Clave son incorrectos");
+								alertify.alert("Alerta",'Usuario y Clave son incorrectos');
 								location.href = "?c=classlogin&m=index";
 							</script>
 							<?php
 						}
 					} else {
+						echo "Aca";
 						require_once 'view/login.php';
 					}
 				}
 			}
 			catch (Exception $e) {
+				echo "Aca :v";
 				?>
 				<script>
-					alert("Usuario y Clave son incorrectos");
+					alertify.alert('Alerta','Usuario y Clave son incorrectos');
 					location.href = "?c=classlogin&m=index";
 				</script>
 				<?php

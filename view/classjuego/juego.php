@@ -10,6 +10,7 @@
     <button type="button" class="btn btn btn-success"value="Girar" onclick="miRuleta.startAnimation();"><span class="glyphicon glyphicon-play"></span> Jugar</button>
     
     <br />
+   
     <br />
     <canvas id='canvas' height="400" width="400"></canvas>
 
@@ -40,7 +41,11 @@
          dibujarIndicador();
        function Mensaje() {
            var SegmentoSeleccionado = miRuleta.getIndicatedSegment();
-           alert("Elemento seleccionado:" + SegmentoSeleccionado.text + "!");
+           var frutas = ["Confite", "Premio 1", "Premio 2", "Premio 3","Premio 4","Premio 5","Premio 6"];
+           var a = frutas.indexOf(SegmentoSeleccionado.text);
+           alert("Elemento seleccionado:" + a + "!");
+
+
            miRuleta.stopAnimation(false);
            miRuleta.rotationAngle = 0;
            miRuleta.draw();
@@ -48,16 +53,20 @@
        }
        function dibujarIndicador() {
             var ctx = miRuleta.ctx;
-            ctx.strokeStyle = 'navy';     
-            ctx.fillStyle = 'black';     
-            ctx.lineWidth = 2;
-            ctx.beginPath();             
-            ctx.moveTo(170, 0);          
-            ctx.lineTo(230, 0);          
-            ctx.lineTo(200, 40);
-            ctx.lineTo(171, 0);
-            ctx.stroke();                
-            ctx.fill();                  
+            ctx.strokeStyle = '#000000';
+    ctx.fillStyle   = 'yellow';
+    ctx.lineWidth   = 2;
+    ctx.beginPath();
+    ctx.moveTo(195, 10);
+    ctx.lineTo(195, 30);
+    ctx.lineTo(165, 30);
+    ctx.lineTo(205, 70);
+    ctx.lineTo(245, 30);
+    ctx.lineTo(215, 30);
+    ctx.lineTo(215, 10);
+    ctx.lineTo(195, 10);
+    ctx.stroke();
+    ctx.fill();                 
        }
  </script>
  

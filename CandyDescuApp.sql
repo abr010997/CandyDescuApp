@@ -1,8 +1,8 @@
 /*
-SQLyog Community v13.0.1 (64 bit)
-MySQL - 10.1.34-MariaDB : Database - candydecuapp
+SQLyog Ultimate v11.11 (64 bit)
+MySQL - 5.5.5-10.1.36-MariaDB : Database - candydecuapp
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -30,9 +30,7 @@ CREATE TABLE `cd_cliente_tb` (
 
 /*Data for the table `cd_cliente_tb` */
 
-insert  into `cd_cliente_tb`(`cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`) values 
-(504050029,'Mauricio','Chevez','Gutierrez'),
-(504080437,'Alberth','Espinoza','Ortiz');
+insert  into `cd_cliente_tb`(`cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`) values (504050029,'Mauricio','Chevez','Gutierrez'),(504080437,'Alberth','Espinoza','Ortiz');
 
 /*Table structure for table `cd_factura_tb` */
 
@@ -49,8 +47,7 @@ CREATE TABLE `cd_factura_tb` (
 
 /*Data for the table `cd_factura_tb` */
 
-insert  into `cd_factura_tb`(`cd_fac_numfactura`,`cd_fac_fecha`,`cd_cli_cedula`) values 
-(1,'2018-10-02',504080437);
+insert  into `cd_factura_tb`(`cd_fac_numfactura`,`cd_fac_fecha`,`cd_cli_cedula`) values (1,'2018-10-02',504080437);
 
 /*Table structure for table `cd_historialjuego_tb` */
 
@@ -68,8 +65,7 @@ CREATE TABLE `cd_historialjuego_tb` (
 
 /*Data for the table `cd_historialjuego_tb` */
 
-insert  into `cd_historialjuego_tb`(`cd_hi_id`,`cd_usu_cedula`,`cd_cli_cedula`,`cd_fac_numfactura`,`cd_fac_fecha`,`cd_hi_numcomprobante`) values 
-(0,NULL,NULL,1,NULL,NULL);
+insert  into `cd_historialjuego_tb`(`cd_hi_id`,`cd_usu_cedula`,`cd_cli_cedula`,`cd_fac_numfactura`,`cd_fac_fecha`,`cd_hi_numcomprobante`) values (0,NULL,NULL,1,NULL,NULL);
 
 /*Table structure for table `cd_info_usu_td` */
 
@@ -90,9 +86,7 @@ CREATE TABLE `cd_info_usu_td` (
 
 /*Data for the table `cd_info_usu_td` */
 
-insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`) values 
-(11,'889900','qa@test.com','Alberthea','123',2),
-(504050029,'85875657 ','Mau@che.com ','Admin','123',1);
+insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`) values (11,'889900','qa@test.com','Alberthea','123',2),(504050029,'85875657 ','Mau@che.com ','Admin','123',1);
 
 /*Table structure for table `cd_infohistorial_tb` */
 
@@ -104,6 +98,20 @@ CREATE TABLE `cd_infohistorial_tb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `cd_infohistorial_tb` */
+
+/*Table structure for table `cd_premios_tb` */
+
+DROP TABLE IF EXISTS `cd_premios_tb`;
+
+CREATE TABLE `cd_premios_tb` (
+  `cd_id_premio` int(11) DEFAULT NULL,
+  `cd_des_premio` varchar(50) DEFAULT NULL,
+  `cd_decuento_premio` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `cd_premios_tb` */
+
+insert  into `cd_premios_tb`(`cd_id_premio`,`cd_des_premio`,`cd_decuento_premio`) values (1,'premio 01','20');
 
 /*Table structure for table `cd_puestos_tb` */
 
@@ -117,10 +125,7 @@ CREATE TABLE `cd_puestos_tb` (
 
 /*Data for the table `cd_puestos_tb` */
 
-insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) values 
-(1,'Administrador'),
-(2,'Cajero'),
-(3,'wee');
+insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) values (1,'Administrador'),(2,'Cajero'),(3,'wee');
 
 /*Table structure for table `cd_usuario_tb` */
 
@@ -136,9 +141,7 @@ CREATE TABLE `cd_usuario_tb` (
 
 /*Data for the table `cd_usuario_tb` */
 
-insert  into `cd_usuario_tb`(`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`) values 
-(11,'Alberth','Esquivel','Alvarado'),
-(504050029,'Mauricio ','ChÃ©vez ','GutiÃ©rrez ');
+insert  into `cd_usuario_tb`(`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`) values (11,'Alberth','Esquivel','Alvarado'),(504050029,'Mauricio ','ChÃ©vez ','GutiÃ©rrez ');
 
 /* Trigger structure for table `cd_factura_tb` */
 
@@ -293,31 +296,6 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Function  structure for function  `fn_random_number_game` */
-
-/*!50003 DROP FUNCTION IF EXISTS `fn_random_number_game` */;
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_random_number_game`(
-  ) RETURNS int(11)
-BEGIN
-  DECLARE vRNG INT(11);
-  DECLARE vNoMoreRows INTEGER DEFAULT 0;
-  DECLARE cRNG CURSOR FOR 
-  SELECT FLOOR(RAND()*(50-5+1)+5) AS RANDOM;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET vNoMoreRows = 1;
-  OPEN cRNG;
-  myloop : LOOP
-	FETCH cRNG INTO vRNG;
-	IF vNoMoreRows = 1 THEN 
-		LEAVE myloop;
-	END IF;
-  END LOOP myloop;
-  CLOSE cRNG;
-  RETURN vRNG;
-END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `sp_cd_cliente_buscar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cliente_buscar` */;
@@ -408,6 +386,18 @@ BEGIN
  WHERE `cd_info_usu_td`.`cd_usu_usuario` = usuario 
  AND `cd_info_usu_td`.`cd_usu_contraseña` = clave;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_premios_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_premios_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_premios_listar`()
+BEGIN
+	select * from`cd_premios_tb`;
+    END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `sp_cd_puestos_buscar` */
@@ -544,40 +534,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_guardar`(
-  IN CEDU INT(11),
-  IN NOM VARCHAR(50), 
-  IN APE1 VARCHAR(50), 
-  IN APE2 VARCHAR(50),
-  IN TEL VARCHAR(50), 
-  IN COR VARCHAR(100), 
-  IN USU VARCHAR(50), 
-  IN CLA VARCHAR(50), 
-  IN IDPUES int(11)
-  )
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_guardar`(IN CEDU INT(11),
+ IN NOM VARCHAR(50), IN APE1 VARCHAR(50), IN APE2 VARCHAR(50),
+  IN TEL VARCHAR(50), IN COR VARCHAR(100), IN USU VARCHAR(50), IN CLA VARCHAR(50), IN IDPUES int(11))
 BEGIN
-  INSERT INTO `cd_usuario_tb` (
-	`cd_usu_cedula`,
-	`cd_usu_nombre`,
-	`cd_usu_ape1`,
-	`cd_usu_ape2` ) VALUES (
-				CEDU,
-				NOM, 
-				APE1, 
-				APE2 );
-  INSERT INTO `cd_info_usu_td` (
-	`cd_usu_cedula`,
-	`cd_usu_telefono`,
-	`cd_usu_correo`,
-	`cd_usu_usuario`,
-	`cd_usu_contraseña`,
-	`cd_usu_idpuesto` ) VALUES (
-				CEDU, 
-				TEL, 
-				COR, 
-				USU, 
-				CLA, 
-				IDPUES );
+	INSERT INTO `cd_usuario_tb` (`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`)
+		VALUES (CEDU, NOM, APE1, APE2);
+	INSERT INTO `cd_info_usu_td` (`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`)
+		VALUES (CEDU, TEL, COR, USU, CLA, IDPUES);
 END */$$
 DELIMITER ;
 

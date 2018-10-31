@@ -6,7 +6,7 @@
 <footer class="container-fluid text-center">
   <p>Todos los derechos reservados 2018©.</p>
 </footer>
-	<script src="assets/login.js"></script>
+	<script src="public/js/login.js"></script>
 	<script src="assets/alertifyjs/alertify.min.js"></script>
 	<script src="assets/bootstrap/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

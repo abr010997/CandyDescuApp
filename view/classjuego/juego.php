@@ -59,5 +59,6 @@
             ctx.stroke();                
             ctx.fill();                  
        }
- </script>  
+ </script>
+ 
 </div>

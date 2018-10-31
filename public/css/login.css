@@ -32,13 +32,13 @@
         padding-top: 25px;
     }
     .img-responsive {
-    display: block;
+    display: grid;
     max-width: 100%;
     height: auto;
     margin: auto;
     }
     .panel {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.85);
     border: 1px solid transparent;
     border-radius: 4px;

@@ -50,6 +50,7 @@
             <li><a href="?c=classpuestos"><span class="glyphicon glyphicon-wrench"></span> Puestos</a></li>
           </ul>
         </li>
+        <li><a href="?c=classjuego&m=index1">Verificar</a></li>
         <li><a href="?c=classjuego">Juego</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

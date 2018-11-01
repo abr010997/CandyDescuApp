@@ -10,7 +10,7 @@ class classClienteController
 	}
 	public function index()
 	{
-		require_once 'view/header.php';
+		require_once 'view/header_app.php';
 		require_once 'view/classCliente/index.php';
 		require_once 'view/footer.php';
 	}
@@ -25,7 +25,7 @@ class classClienteController
 			header('location:?c=classCliente&m=index');
 		}
 		else{
-			require_once 'view/header.php';
+			require_once 'view/header_app.php';
 			require_once 'view/classCliente/agregar.php';
 			require_once 'view/footer.php';
 		}
@@ -42,7 +42,7 @@ class classClienteController
 	 	}
 	 	else{
 			$this->classCliente = $this->classCliente->buscar($_REQUEST['id']);
-			require_once 'view/header.php';
+			require_once 'view/header_app.php';
 			require_once 'view/classCliente/editar.php';
 			require_once 'view/footer.php';		}
 	 	}
@@ -57,7 +57,7 @@ class classClienteController
 	public function ver()
 	{
 		$this->classCliente = $this->classCliente->buscar($_REQUEST['id']);
-		require_once 'view/header.php';
+		require_once 'view/header_app.php';
 		require_once 'view/classCliente/ver.php';
 		require_once 'view/footer.php';
 	}

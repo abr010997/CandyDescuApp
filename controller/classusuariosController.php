@@ -10,7 +10,7 @@ class classusuariosController
 
 	public function index()
 	{
-		require_once 'view/header.php';
+		require_once 'view/header_app.php';
 		require_once 'view/classusuarios/index.php';
 		require_once 'view/footer.php';
 	}
@@ -31,7 +31,7 @@ public function agregar()
 		header('location:?c=classusuarios&m=index');
 	}
 		else{
-			require_once 'view/header.php';
+			require_once 'view/header_app.php';
 			require_once 'view/classusuarios/agregar.php';
 			require_once 'view/footer.php';
 		}
@@ -51,7 +51,7 @@ public function agregar()
 		}
 		else{
 			$this->classusuarios = $this->classusuarios->buscar($_REQUEST['id']);
-			require_once 'view/header.php';
+			require_once 'view/header_app.php';
 			require_once 'view/classusuarios/editar.php';
 			require_once 'view/footer.php';
 		}
@@ -67,7 +67,7 @@ public function agregar()
 	public function ver()
 	{
 		$this->classusuarios = $this->classusuarios->buscar($_REQUEST['id']);
-		require_once 'view/header.php';
+		require_once 'view/header_app.php';
 		require_once 'view/classusuarios/ver.php';
 		require_once 'view/footer.php';
 	}

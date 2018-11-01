@@ -28,6 +28,12 @@ class classcambiarclaveController {
 						$this->classcambiarclave->setAtributo('usuario',$_POST['usuario']);
 						$this->classcambiarclave->setAtributo('clave',$_POST['clave']);
 						$this->classcambiarclave->cambiar_clave($_POST['correo'],$_POST['usuario'],$_POST["clave"]);
+						?>
+						<script>
+							alertify.alert('Alerta','Se ha cambiado la clave');
+							location.href = "?c=classcambiarclave&m=index";
+						</script>
+						<?php
 						header('location: ?c=classlogin&m=index');
 					} else {
 						require_once 'view/cambiarclave.php';
@@ -37,8 +43,10 @@ class classcambiarclaveController {
 			catch (Exception $e) {
 				?>
 				<script>
-					alert("correo y usuario estan vacios");
-					location.href = "?c=classcambiarclave&m=index";
+					alertify.alert('Alerta','correo y usuario estan vacios', function(){ 
+						location.href = "?c=classcambiarclave&m=index";
+						alertify.success('Ok'); 
+					});
 				</script>
 				<?php
 		    }

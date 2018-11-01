@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.5.5-10.1.36-MariaDB : Database - candydecuapp
+SQLyog Community v13.0.1 (64 bit)
+MySQL - 10.1.34-MariaDB : Database - candydecuapp
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -25,12 +25,35 @@ CREATE TABLE `cd_cliente_tb` (
   `cd_cli_nombre` varchar(50) DEFAULT NULL,
   `cd_cli_ape1` varchar(50) DEFAULT NULL,
   `cd_cli_ape2` varchar(50) DEFAULT NULL,
+  `cd_estado` varchar(1) NOT NULL,
   PRIMARY KEY (`cd_cli_cedula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `cd_cliente_tb` */
 
-insert  into `cd_cliente_tb`(`cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`) values (504050029,'Mauricio','Chevez','Gutierrez'),(504080437,'Alberth','Espinoza','Ortiz');
+insert  into `cd_cliente_tb`(`cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`,`cd_estado`) values 
+(504050029,'Mauricio','Chevez','Gutierrez','A'),
+(504080437,'Alberth','Espinoza','Ortiz','A');
+
+/*Table structure for table `cd_clientefactura_tb` */
+
+DROP TABLE IF EXISTS `cd_clientefactura_tb`;
+
+CREATE TABLE `cd_clientefactura_tb` (
+  `cd_cli_cedula` int(11) DEFAULT NULL,
+  `cd_fac_numfactura` int(11) DEFAULT NULL,
+  KEY `fk_cli_cedula` (`cd_cli_cedula`),
+  KEY `fk_fac_numfactura` (`cd_fac_numfactura`),
+  CONSTRAINT `fk_cli_cedula` FOREIGN KEY (`cd_cli_cedula`) REFERENCES `cd_cliente_tb` (`cd_cli_cedula`),
+  CONSTRAINT `fk_fac_numfactura` FOREIGN KEY (`cd_fac_numfactura`) REFERENCES `cd_factura_tb` (`cd_fac_numfactura`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `cd_clientefactura_tb` */
+
+insert  into `cd_clientefactura_tb`(`cd_cli_cedula`,`cd_fac_numfactura`) values 
+(504080437,1),
+(504080437,2),
+(504080437,3);
 
 /*Table structure for table `cd_factura_tb` */
 
@@ -39,15 +62,15 @@ DROP TABLE IF EXISTS `cd_factura_tb`;
 CREATE TABLE `cd_factura_tb` (
   `cd_fac_numfactura` int(11) NOT NULL,
   `cd_fac_fecha` date DEFAULT NULL,
-  `cd_cli_cedula` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cd_fac_numfactura`),
-  KEY `cd_factura_cedula_tb` (`cd_cli_cedula`),
-  CONSTRAINT `cd_factura_cedula_tb` FOREIGN KEY (`cd_cli_cedula`) REFERENCES `cd_cliente_tb` (`cd_cli_cedula`)
+  PRIMARY KEY (`cd_fac_numfactura`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `cd_factura_tb` */
 
-insert  into `cd_factura_tb`(`cd_fac_numfactura`,`cd_fac_fecha`,`cd_cli_cedula`) values (1,'2018-10-02',504080437);
+insert  into `cd_factura_tb`(`cd_fac_numfactura`,`cd_fac_fecha`) values 
+(1,'2018-10-31'),
+(2,'2018-10-31'),
+(3,'2018-10-31');
 
 /*Table structure for table `cd_historialjuego_tb` */
 
@@ -65,7 +88,8 @@ CREATE TABLE `cd_historialjuego_tb` (
 
 /*Data for the table `cd_historialjuego_tb` */
 
-insert  into `cd_historialjuego_tb`(`cd_hi_id`,`cd_usu_cedula`,`cd_cli_cedula`,`cd_fac_numfactura`,`cd_fac_fecha`,`cd_hi_numcomprobante`) values (0,NULL,NULL,1,NULL,NULL);
+insert  into `cd_historialjuego_tb`(`cd_hi_id`,`cd_usu_cedula`,`cd_cli_cedula`,`cd_fac_numfactura`,`cd_fac_fecha`,`cd_hi_numcomprobante`) values 
+(0,NULL,NULL,1,NULL,NULL);
 
 /*Table structure for table `cd_info_usu_td` */
 
@@ -78,6 +102,7 @@ CREATE TABLE `cd_info_usu_td` (
   `cd_usu_usuario` varchar(50) DEFAULT NULL,
   `cd_usu_contraseña` varchar(50) DEFAULT NULL,
   `cd_usu_idpuesto` int(11) DEFAULT NULL,
+  `cd_estado` varchar(1) NOT NULL,
   KEY `cd_usuario_cedula_tb` (`cd_usu_cedula`),
   KEY `cd_usuario_puesto_tb` (`cd_usu_idpuesto`),
   CONSTRAINT `cd_usuario_cedula_tb` FOREIGN KEY (`cd_usu_cedula`) REFERENCES `cd_usuario_tb` (`cd_usu_cedula`),
@@ -86,7 +111,9 @@ CREATE TABLE `cd_info_usu_td` (
 
 /*Data for the table `cd_info_usu_td` */
 
-insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`) values (11,'889900','qa@test.com','Alberthea','123',2),(504050029,'85875657 ','Mau@che.com ','Admin','123',1);
+insert  into `cd_info_usu_td`(`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`,`cd_estado`) values 
+(11,'889900','qa@test.com','Alberthea','123456',2,'A'),
+(504050029,'85875657 ','Mau@che.com ','Admin','123',1,'A');
 
 /*Table structure for table `cd_infohistorial_tb` */
 
@@ -111,7 +138,8 @@ CREATE TABLE `cd_premios_tb` (
 
 /*Data for the table `cd_premios_tb` */
 
-insert  into `cd_premios_tb`(`cd_id_premio`,`cd_des_premio`,`cd_decuento_premio`) values (1,'premio 01','20');
+insert  into `cd_premios_tb`(`cd_id_premio`,`cd_des_premio`,`cd_decuento_premio`) values 
+(1,'premio 01','20');
 
 /*Table structure for table `cd_puestos_tb` */
 
@@ -120,12 +148,17 @@ DROP TABLE IF EXISTS `cd_puestos_tb`;
 CREATE TABLE `cd_puestos_tb` (
   `cd_usu_idpuesto` int(11) NOT NULL,
   `cd_descripcion_pues` varchar(50) DEFAULT NULL,
+  `cd_estado` varchar(1) NOT NULL,
   PRIMARY KEY (`cd_usu_idpuesto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `cd_puestos_tb` */
 
-insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`) values (1,'Administrador'),(2,'Cajero'),(3,'wee');
+insert  into `cd_puestos_tb`(`cd_usu_idpuesto`,`cd_descripcion_pues`,`cd_estado`) values 
+(1,'Administrador','A'),
+(2,'Cajero','A'),
+(3,'wee','I'),
+(4,'Corredor','A');
 
 /*Table structure for table `cd_usuario_tb` */
 
@@ -136,12 +169,28 @@ CREATE TABLE `cd_usuario_tb` (
   `cd_usu_nombre` varchar(50) DEFAULT NULL,
   `cd_usu_ape1` varchar(50) DEFAULT NULL,
   `cd_usu_ape2` varchar(50) DEFAULT NULL,
+  `cd_estado` varchar(1) NOT NULL,
   PRIMARY KEY (`cd_usu_cedula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `cd_usuario_tb` */
 
-insert  into `cd_usuario_tb`(`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`) values (11,'Alberth','Esquivel','Alvarado'),(504050029,'Mauricio ','ChÃ©vez ','GutiÃ©rrez ');
+insert  into `cd_usuario_tb`(`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`,`cd_estado`) values 
+(11,'Alberth','Esquivel','Alvarado','A'),
+(504050029,'Mauricio ','ChÃ©vez ','GutiÃ©rrez ','A');
+
+/* Trigger structure for table `cd_cliente_tb` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `cd_cliente` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `cd_cliente` BEFORE INSERT ON `cd_cliente_tb` FOR EACH ROW BEGIN
+	SET new.`cd_estado` = 'A';
+    END */$$
+
+
+DELIMITER ;
 
 /* Trigger structure for table `cd_factura_tb` */
 
@@ -158,14 +207,40 @@ DELIMITER $$
 
 DELIMITER ;
 
-/* Trigger structure for table `cd_factura_tb` */
+/* Trigger structure for table `cd_info_usu_td` */
 
 DELIMITER $$
 
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `cd_historialjuego_tb_ai` */$$
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `cd_info_usuario` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `cd_historialjuego_tb_ai` AFTER INSERT ON `cd_factura_tb` FOR EACH ROW BEGIN
-	insert into `cd_historialjuego_tb` SET `cd_fac_numfactura` = NEW.`cd_fac_numfactura`;
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `cd_info_usuario` BEFORE INSERT ON `cd_info_usu_td` FOR EACH ROW BEGIN
+	SET new.`cd_estado` = 'A';
+    END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `cd_puestos_tb` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `cd_puesto` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `cd_puesto` BEFORE INSERT ON `cd_puestos_tb` FOR EACH ROW BEGIN
+	SET new.`cd_estado` = 'A';
+    END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `cd_usuario_tb` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `cd_usuario_estado` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `cd_usuario_estado` BEFORE INSERT ON `cd_usuario_tb` FOR EACH ROW BEGIN
+	SET new.`cd_estado` = 'A';
     END */$$
 
 
@@ -188,6 +263,68 @@ BEGIN
   end if;
   
   return vAcceso;
+END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_aplicapremio` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_aplicapremio` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_aplicapremio`(
+  numpremio int(11)
+  ) RETURNS varchar(11) CHARSET latin1
+BEGIN
+  DECLARE NoMoreRow INTEGER DEFAULT 0;
+  DECLARE vVerificar VARCHAR(1);
+  DECLARE cVerificar CURSOR FOR
+  SELECT `cd_id_premio`
+  FROM `cd_premios_tb`
+  WHERE `cd_premios_tb`.`cd_id_premio` = numpremio;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET NoMoreRow = 1;
+  OPEN cVerificar;
+  myloop : LOOP
+	FETCH cVerificar INTO vVerificar;
+	IF NoMoreRow = 1 THEN
+		LEAVE myloop;
+	END IF;
+  END LOOP myloop;
+  CLOSE cVerificar;
+  IF vVerificar IS NULL THEN
+	SELECT 0 INTO vVerificar;
+  END IF;
+  RETURN vVerificar;
+END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_aplicarjuego` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_aplicarjuego` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_aplicarjuego`(
+  factura int(11)
+  ) RETURNS varchar(1) CHARSET latin1
+BEGIN
+  DECLARE NoMoreRow INTEGER DEFAULT 0;
+  DECLARE vVerificar VARCHAR(1);
+  DECLARE cVerificar CURSOR FOR
+  SELECT 'S'
+  FROM `cd_factura_tb`
+  WHERE `cd_factura_tb`.`cd_fac_numfactura` = factura;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET NoMoreRow = 1;
+  OPEN cVerificar;
+  myloop : LOOP
+	FETCH cVerificar INTO vVerificar;
+	IF NoMoreRow = 1 THEN
+		LEAVE myloop;
+	END IF;
+  END LOOP myloop;
+  CLOSE cVerificar;
+  IF vVerificar IS NULL THEN
+	SELECT 'N' INTO vVerificar;
+  END IF;
+  RETURN vVerificar;
 END */$$
 DELIMITER ;
 
@@ -296,6 +433,81 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Function  structure for function  `fn_random_number_game` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_random_number_game` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_random_number_game`(
+  ) RETURNS int(11)
+BEGIN
+  DECLARE vRNG INT(11);
+  DECLARE vNoMoreRows INTEGER DEFAULT 0;
+  DECLARE cRNG CURSOR FOR 
+  SELECT FLOOR(RAND()*(50-5+1)+5) AS RANDOM;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET vNoMoreRows = 1;
+  OPEN cRNG;
+  myloop : LOOP
+	FETCH cRNG INTO vRNG;
+	IF vNoMoreRows = 1 THEN 
+		LEAVE myloop;
+	END IF;
+  END LOOP myloop;
+  CLOSE cRNG;
+  RETURN vRNG;
+END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_verificar_cliente` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_verificar_cliente` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_verificar_cliente`(
+  cedula int(11)
+  ) RETURNS varchar(1) CHARSET latin1
+BEGIN
+  declare NoMoreRow integer default 0;
+  declare vVerificar varchar(1);
+  declare cVerificar cursor for
+  select 'S'
+  from `cd_cliente_tb`
+  where `cd_cliente_tb`.`cd_cli_cedula` = cedula;
+  declare continue handler for not found set NoMoreRow = 1;
+  open cVerificar;
+  myloop : loop
+	fetch cVerificar into vVerificar;
+	if NoMoreRow = 1 then
+		leave myloop;
+	end if;
+  end loop myloop;
+  close cVerificar;
+  if vVerificar is null then
+	select 'N' into vVerificar;
+  end if;
+  return vVerificar;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_cambiarclave` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cambiarclave` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_cambiarclave`(
+  in correo varchar(50),
+  in usuario varchar(50),
+  in clave varchar(50)
+  )
+BEGIN
+  update `cd_info_usu_td`
+  set `cd_info_usu_td`.`cd_usu_contraseña` = clave
+  where `cd_info_usu_td`.`cd_usu_correo` = correo
+  and `cd_info_usu_td`.`cd_usu_usuario` = usuario;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_cd_cliente_buscar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_cliente_buscar` */;
@@ -321,7 +533,8 @@ BEGIN
 	UPDATE `cd_cliente_tb`
 	SET `cd_cli_nombre` = nom_cliente,
 	`cd_cli_ape1`=ape1_cliente,
-	`cd_cli_ape2`=ape2_cliente
+	`cd_cli_ape2`=ape2_cliente,
+	`cd_estado` = 'A'
      WHERE `cd_cli_cedula` = id_cliente;
     END */$$
 DELIMITER ;
@@ -334,7 +547,8 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_cliente_eliminar`(IN IDCLI INT(11))
 BEGIN
-DELETE FROM `cd_cliente_tb`
+UPDATE `cd_cliente_tb`
+ SET `cd_cliente_tb`.`cd_estado` = 'I'
  WHERE `cd_cli_cedula` = IDCLI;
 END */$$
 DELIMITER ;
@@ -362,7 +576,24 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_cliente_listar`()
 BEGIN
 SELECT `cd_cli_cedula`,`cd_cli_nombre`,`cd_cli_ape1`,`cd_cli_ape2`
- FROM `cd_cliente_tb`;
+ FROM `cd_cliente_tb`
+ WHERE `cd_cliente_tb`.`cd_estado` = 'A';
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_cd_factura_guardar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_cd_factura_guardar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_factura_guardar`(
+  in cedula int(11),
+  in factura int(11)  
+  )
+BEGIN
+  INSERT INTO `cd_factura_tb` (`cd_fac_numfactura`,`cd_fac_fecha`) VALUES(factura, NULL);
+  insert into `cd_clientefactura_tb`(`cd_cli_cedula`,`cd_fac_numfactura`) values (cedula, factura);
 END */$$
 DELIMITER ;
 
@@ -384,7 +615,8 @@ BEGIN
  INNER JOIN `cd_info_usu_td` ON `cd_usuario_tb`.`cd_usu_cedula` = `cd_info_usu_td`.`cd_usu_cedula`
  INNER JOIN `cd_puestos_tb` ON `cd_info_usu_td`.`cd_usu_idpuesto` = `cd_puestos_tb`.`cd_usu_idpuesto`
  WHERE `cd_info_usu_td`.`cd_usu_usuario` = usuario 
- AND `cd_info_usu_td`.`cd_usu_contraseña` = clave;
+ AND `cd_info_usu_td`.`cd_usu_contraseña` = clave
+ and `cd_info_usu_td`.`cd_estado` = 'A';
 END */$$
 DELIMITER ;
 
@@ -422,7 +654,8 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_puestos_editar`(id_puesto INT(11), des_puesto VARCHAR(50))
 BEGIN
     UPDATE `cd_puestos_tb` 
-	SET `cd_descripcion_pues` = des_puesto
+	SET `cd_descripcion_pues` = des_puesto,
+	`cd_estado` = 'A'
      WHERE `cd_usu_idpuesto` = id_puesto;
     END */$$
 DELIMITER ;
@@ -435,9 +668,10 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_puestos_eliminar`(id_puesto INT(11))
 BEGIN
-	delete from `cd_puestos_tb`
-	where`cd_usu_idpuesto`=id_puesto;
-    END */$$
+UPDATE `cd_puestos_tb`
+ SET `cd_puestos_tb`.`cd_estado` = 'I'
+ WHERE `cd_puestos_tb`.`cd_usu_idpuesto` = id_puesto;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `sp_cd_puestos_guardar` */
@@ -460,7 +694,8 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_puestos_listar`()
 BEGIN
-	SELECT * FROM cd_puestos_tb;	
+	SELECT * FROM cd_puestos_tb
+	WHERE `cd_puestos_tb`.`cd_estado` = 'A';	
     END */$$
 DELIMITER ;
 
@@ -520,11 +755,13 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_eliminar`(IN CED INT(11))
 BEGIN
-DELETE FROM `cd_info_usu_td`
-	WHERE `cd_usu_cedula` = CED;
+UPDATE `cd_info_usu_td`
+ SET `cd_info_usu_td`.`cd_estado` = 'I'
+ WHERE `cd_info_usu_td`.`cd_usu_cedula` = CED;
 	
-		DELETE FROM `cd_usuario_tb`
-			WHERE `cd_usu_cedula` = CED;
+UPDATE `cd_usuario_tb`
+ SET `cd_usuario_tb`.`cd_estado` = 'I'
+ WHERE `cd_usuario_tb`.`cd_usu_cedula` = CED;
 END */$$
 DELIMITER ;
 
@@ -534,14 +771,40 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_guardar`(IN CEDU INT(11),
- IN NOM VARCHAR(50), IN APE1 VARCHAR(50), IN APE2 VARCHAR(50),
-  IN TEL VARCHAR(50), IN COR VARCHAR(100), IN USU VARCHAR(50), IN CLA VARCHAR(50), IN IDPUES int(11))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cd_usuario_info_tb_guardar`(
+  IN CEDU INT(11),
+  IN NOM VARCHAR(50), 
+  IN APE1 VARCHAR(50), 
+  IN APE2 VARCHAR(50),
+  IN TEL VARCHAR(50), 
+  IN COR VARCHAR(100), 
+  IN USU VARCHAR(50), 
+  IN CLA VARCHAR(50), 
+  IN IDPUES int(11)
+  )
 BEGIN
-	INSERT INTO `cd_usuario_tb` (`cd_usu_cedula`,`cd_usu_nombre`,`cd_usu_ape1`,`cd_usu_ape2`)
-		VALUES (CEDU, NOM, APE1, APE2);
-	INSERT INTO `cd_info_usu_td` (`cd_usu_cedula`,`cd_usu_telefono`,`cd_usu_correo`,`cd_usu_usuario`,`cd_usu_contraseña`,`cd_usu_idpuesto`)
-		VALUES (CEDU, TEL, COR, USU, CLA, IDPUES);
+  INSERT INTO `cd_usuario_tb` (
+	`cd_usu_cedula`,
+	`cd_usu_nombre`,
+	`cd_usu_ape1`,
+	`cd_usu_ape2` ) VALUES (
+				CEDU,
+				NOM, 
+				APE1, 
+				APE2 );
+  INSERT INTO `cd_info_usu_td` (
+	`cd_usu_cedula`,
+	`cd_usu_telefono`,
+	`cd_usu_correo`,
+	`cd_usu_usuario`,
+	`cd_usu_contraseña`,
+	`cd_usu_idpuesto` ) VALUES (
+				CEDU, 
+				TEL, 
+				COR, 
+				USU, 
+				CLA, 
+				IDPUES );
 END */$$
 DELIMITER ;
 
@@ -556,11 +819,13 @@ BEGIN
 SELECT `cd_usuario_tb`.`cd_usu_cedula`,cd_usuario_tb.`cd_usu_nombre`,cd_usuario_tb.`cd_usu_ape1`,cd_usuario_tb.`cd_usu_ape2`,
 `cd_info_usu_td`.`cd_usu_telefono`,cd_info_usu_td.`cd_usu_correo`,`cd_puestos_tb`.`cd_descripcion_pues`
  FROM `cd_usuario_tb`
-	inner join `cd_info_usu_td`
-		on cd_usuario_tb.`cd_usu_cedula` = cd_info_usu_td.`cd_usu_cedula`
+	INNER JOIN `cd_info_usu_td`
+		ON cd_usuario_tb.`cd_usu_cedula` = cd_info_usu_td.`cd_usu_cedula`
 		
-			inner join cd_puestos_tb
-				on `cd_info_usu_td`.`cd_usu_idpuesto` = cd_puestos_tb.`cd_usu_idpuesto` ;
+			INNER JOIN cd_puestos_tb
+				ON `cd_info_usu_td`.`cd_usu_idpuesto` = cd_puestos_tb.`cd_usu_idpuesto`
+				WHERE `cd_info_usu_td`.`cd_estado` = 'A'
+				AND `cd_usuario_tb`.`cd_estado` = 'A';
 END */$$
 DELIMITER ;
 
@@ -577,12 +842,14 @@ BEGIN
 	UPDATE `cd_usuario_tb`
 		SET `cd_usu_nombre` = NOM,
 		`cd_usu_ape1` = APE1,
-		`cd_usu_ape2` = APE2
+		`cd_usu_ape2` = APE2,
+		`cd_estado` = 'A'
 			WHERE `cd_usu_cedula` = CEDU;
 			UPDATE `cd_info_usu_td` 
 				SET `cd_usu_telefono` = TEL,
 				`cd_usu_correo` = COR,
-				`cd_usu_idpuesto` = IDPUES
+				`cd_usu_idpuesto` = IDPUES,
+				`cd_estado` = 'A'
 					WHERE cd_usu_cedula = CEDU;
 END */$$
 DELIMITER ;

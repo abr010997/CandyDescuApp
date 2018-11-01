@@ -13,6 +13,7 @@ class classloginController {
 	private $puesto;
 	private $acceso;
 	private $claveerronea;
+	private $msg;
 
 	function __construct() {
 		$this->classlogin =  new classlogin();
@@ -106,14 +107,23 @@ class classloginController {
 	public function cambiar_clave(){
 		if (isset($_POST["submit"])) {
 			try{
-				if (empty($_POST["correo"] || $_POST["usuario"] || $_POST["clave"])) {
+				if (empty($_POST["correos"] || $_POST["usuarios"] || $_POST["claves"])) {
 					throw new Exception("correo y usuario son incorrectos");
 				} else {
 					if ($_POST) {
-						$this->classlogin->setAtributo('correo',$_POST['correo']);
-						$this->classlogin->setAtributo('usuario',$_POST['usuario']);
-						$this->classlogin->setAtributo('clave',$_POST['clave']);
-						$this->classlogin->cambiar_clave($_POST['correo'],$_POST['usuario'],$_POST["clave"]);
+						$this->classlogin->setAtributo('correos',$_POST['correos']);
+						$this->classlogin->setAtributo('usuarios',$_POST['usuarios']);
+						$this->classlogin->setAtributo('claves',$_POST['claves']);
+						$this->classlogin->cambiar_clave($_POST['correos'],$_POST['usuarios'],$_POST["claves"]);
+						?>
+							<script>
+								alertify.alert('Alerta','Se cambio la nueva clave', function(){ 
+									alertify.success('Ok');
+									location.href = "?c=classlogin&m=index"; 
+								});
+							</script>
+						<?php
+						require_once 'view/login.php';
 					} else {
 						require_once 'view/login.php';
 					}
@@ -122,8 +132,10 @@ class classloginController {
 			catch (Exception $e) {
 				?>
 				<script>
-					alert("correo y usuario estan vacios");
-					location.href = "?c=classlogin&m=index";
+					alertify.alert('Alerta','Se cambio la nueva clave', function(){ 
+									alertify.success('Ok');
+									location.href = "?c=classlogin&m=index"; 
+								});
 				</script>
 				<?php
 		    }
@@ -134,7 +146,7 @@ class classloginController {
 		if (isset($_POST["submit"])) {
 			try{
 				if (empty($_POST["usuario"] || $_POST["clave"])) {
-					throw new Exception("Usuario y Clave son incorrectos");
+					throw new Exception("Usuario y Clave estan vacios");
 				} else {
 					if ($_POST) {
 						$this->classlogin->setAtributo('usuario',$_POST['usuario']);
@@ -154,26 +166,27 @@ class classloginController {
 								header("Location: ?c=class03puestos&m=index");
 							}
 						} else {
-							echo "Aca";
 							?>
 							<script>
-								alertify.alert("Alerta",'Usuario y Clave son incorrectos');
-								location.href = "?c=classlogin&m=index";
+								alertify.alert("Alerta",'Usuario y Clave son incorrectos', function(){ 
+									alertify.success('Ok');
+									location.href = "?c=classlogin&m=index"; 
+								});
 							</script>
 							<?php
 						}
 					} else {
-						echo "Aca";
 						require_once 'view/login.php';
 					}
 				}
 			}
 			catch (Exception $e) {
-				echo "Aca :v";
 				?>
 				<script>
-					alertify.alert('Alerta','Usuario y Clave son incorrectos');
-					location.href = "?c=classlogin&m=index";
+					alertify.alert('Alerta','Usuario y Clave estan vacios', function(){ 
+						location.href = "?c=classlogin&m=index";
+						alertify.success('Ok'); 
+					});
 				</script>
 				<?php
 		    }

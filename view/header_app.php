@@ -105,8 +105,3 @@
     </div>
   </nav>
   <div class="container-fluid ">
-  <script>
-    var usu = document.getElementById('usu').value;
-    console.log(usu);
-    alertify.alert('Sesión','Bienvenido'+usu);
-  </script>

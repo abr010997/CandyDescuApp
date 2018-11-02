@@ -77,6 +77,13 @@
             <?php 
               endif;
              ?>
+             <?php 
+              if ($idpuesto == 1) :
+             ?>
+            <li><a href="?c=classpremios"><span class="glyphicon glyphicon-wrench"></span> Premios</a></li>
+            <?php 
+              endif;
+             ?>
           </ul>
         </li>
         <li><a href="?c=classjuego&m=index1">Verificar</a></li>

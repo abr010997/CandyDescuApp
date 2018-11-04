@@ -1,6 +1,5 @@
 <?php
 require_once 'model/classjuego.php';
-require_once 'public/reporte/plantilla.php';
 ?>
 <link rel="stylesheet" href="assets/alertifyjs/css/alertify.min.css">
 <script src="assets/alertifyjs/alertify.min.js"></script>
@@ -10,6 +9,7 @@ class classjuegoController
 	private $classjuego;
 	private $cedula;
 	private $juego;
+	private $reporte;
 
 	function __construct() {
 		$this->classjuego =  new classjuego();
@@ -70,7 +70,8 @@ class classjuegoController
 		$this->classjuego->setAtributo('cd_id_premio',$_REQUEST['id']);
 		$dato = $this->classjuego->getAtributo('cd_id_premio');
 		$premio = $this->classjuego->aplicarpremio($dato);
-		
+		$this->classjuego->reporte_premio($premio);
+		header('Location: ?c=classreportepremios&m=index');
 	}
 }
  ?>

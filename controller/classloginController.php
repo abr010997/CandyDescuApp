@@ -115,6 +115,7 @@ class classloginController {
 						$this->classlogin->setAtributo('usuarios',$_POST['usuarios']);
 						$this->classlogin->setAtributo('claves',$_POST['claves']);
 						$this->classlogin->cambiar_clave($_POST['correos'],$_POST['usuarios'],$_POST["claves"]);
+						echo ".";
 						?>
 							<script>
 								alertify.alert('Alerta','Se cambio la nueva clave', function(){ 
@@ -123,13 +124,13 @@ class classloginController {
 								});
 							</script>
 						<?php
-						require_once 'view/login.php';
 					} else {
 						require_once 'view/login.php';
 					}
 				}
 			}
 			catch (Exception $e) {
+				echo ".";
 				?>
 				<script>
 					alertify.alert('Alerta','Se cambio la nueva clave', function(){ 
@@ -166,6 +167,7 @@ class classloginController {
 								header("Location: ?c=classinicio&m=index");
 							}
 						} else {
+							echo ".";
 							?>
 							<script>
 								alertify.alert("Alerta","Usuario y Clave son incorrectos", function(){ 
@@ -181,7 +183,7 @@ class classloginController {
 				}
 			}
 			catch (Exception $e) {
-				echo "string";
+				echo ".";
 				?>
 				<script>
 					alertify.alert('Alerta','Usuario y Clave estan vacios', function(){ 

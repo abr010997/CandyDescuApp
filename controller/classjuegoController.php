@@ -69,8 +69,8 @@ class classjuegoController
 	public function ganaPremio(){
 		$this->classjuego->setAtributo('cd_id_premio',$_REQUEST['id']);
 		$dato = $this->classjuego->getAtributo('cd_id_premio');
-		$premio = $this->classjuego->aplicarpremio($dato);
-		$this->classjuego->reporte_premio($premio);
+		//$premio = $this->classjuego->aplicarpremio($dato);
+		$this->classjuego->reporte_premio($dato);
 		header('Location: ?c=classreportepremios&m=index');
 	}
 }

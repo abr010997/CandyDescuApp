@@ -7,7 +7,7 @@
       <table class="display table table-bordered" cellpadding="0" cellspacing="0" border="0" width="100%" id="grilla-premios">
         <thead>
           <tr>
-            <th>Código del premio</th>
+            <th>Código del Factura</th>
             <th>Nombre del premio</th>
             <th>Descuento del premio</th>
             <th style="width: 120px;">Más</th>
@@ -23,10 +23,7 @@
                 <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Opciones
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                    <li>
-                        <a href="?c=classreportepremios&m=reporte&id=<?php echo $row[0]; ?>" target="_blank">
-                        <span class="glyphicon glyphicon-pencil"></span> Imprimir</a>
-                    </li>
+                    <li><a href="?c=classreportepremios&m=reporte&id=<?php echo $row[0]; ?>" target="_blank"><span class="glyphicon glyphicon-pencil"></span> Imprimir</a></li>
                   </ul>
                 </div></td>
               </tr>
